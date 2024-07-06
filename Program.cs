@@ -21,7 +21,7 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapGet("/weatherforecast", () =>
+/* app.MapGet("/weatherforecast", () =>
     {
         var forecast = Enumerable.Range(1, 5).Select(index =>
                 new WeatherForecast
@@ -35,6 +35,22 @@ app.MapGet("/weatherforecast", () =>
     })
     .WithName("GetWeatherForecast")
     .WithOpenApi();
+ */
+
+
+// Adding a new endpoint for students
+app.MapGet("/students", () =>
+    {
+        var students = new List<Student>
+        {
+            new Student(1, "Alice Johnson", "Computer Science"),
+            new Student(2, "Bob Smith", "Mathematics"),
+            new Student(3, "Carol White", "English Literature")
+        };
+        return students;
+    })
+    .WithName("GetStudents")
+    .WithOpenApi();
 
 app.Run();
 
@@ -42,3 +58,5 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
+
+record Student(int Id, string Name, string Major);
